@@ -6,8 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    # IMPORTANT: Change this to YOUR repo URL after you push to GitHub
-    repoURL: https://github.com/YOUR_USERNAME/k3s-poc.git
+    repoURL: https://github.com/jdavidncl/k3s-poc.git
     targetRevision: main
     path: apps/nginx
   destination:
