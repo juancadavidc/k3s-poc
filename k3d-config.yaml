@@ -1,0 +1,31 @@
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: poc-cluster
+servers: 1
+agents: 2
+ports:
+  # Expose ingress on localhost:8180 -> port 80 on the load balancer
+  - port: 8180:80
+    nodeFilters:
+      - loadbalancer
+  # Expose ingress on localhost:8543 -> port 443 on the load balancer
+  - port: 8543:443
+    nodeFilters:
+      - loadbalancer
+  # Expose ArgoCD on localhost:30080 -> nodePort 30080
+  - port: 30080:30080
+    nodeFilters:
+      - servers:*
+options:
+  k3d:
+    wait: true
+    timeout: "120s"
+  k3s:
+    extraArgs:
+      - arg: --disable=traefik
+        nodeFilters:
+          - servers:*
+  kubeconfig:
+    updateDefaultKubeconfig: true
+    switchCurrentContext: true
